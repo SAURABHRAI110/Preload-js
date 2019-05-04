@@ -31,16 +31,31 @@
                 document.querySelector('body').style.background = 'white';
 
             }
-        })
+        });
+
+        queue.on("complete", event => {
+            gallery.classList.add('fadein');
+            setTimeout(() => {
+                progress.classList.add('fadeout');
+            }, 500)
+
+        });
 
         queue.on("fileload", handleFileComplete);
-        queue.loadFile('https://source.unsplash.com/1600x900/?love,red');
-        queue.loadFile('https://source.unsplash.com/collection/190727/1600x900');
-        queue.loadFile('https://source.unsplash.com/weekly?water');
-        queue.loadFile('https://source.unsplash.com/daily');
+        queue.loadFile('https://s3.amazonaws.com/coursetro/stuff/mountains-clouds.jpg');
+        queue.loadFile('https://s3.amazonaws.com/coursetro/stuff/adventure-alpine-alps-714258.jpg');
+        queue.loadFile(
+            'https://s3.amazonaws.com/coursetro/stuff/170407220921-07-iconic-mountains-pitons-restricted.jpg');
+        queue.loadFile(
+            'https://s3.amazonaws.com/coursetro/stuff/170407220916-04-iconic-mountains-matterhorn-restricted.jpg');
 
         function handleFileComplete(event) {
+            var item = event.item;
+            var type = item.type;
 
+            if (type == createjs.Types.IMAGE) {
+                gallery.appendChild(event.result);
+            }
         }
     </script>
 </body>
