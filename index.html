@@ -24,10 +24,17 @@
 
         queue.on("progress", event => {
             console.log(event);
+            let progress = Math.floor(event.progress * 100);
+            this.progress.style.width = progress + '%';
+            if (progress == 100) {
+                console.log('all done');
+                document.querySelector('body').style.background = 'white';
+
+            }
         })
 
         queue.on("fileload", handleFileComplete);
-        queue.loadFile('https://source.unsplash.com/user/jackie/likes/1600x900');
+        queue.loadFile('https://source.unsplash.com/1600x900/?love,red');
         queue.loadFile('https://source.unsplash.com/collection/190727/1600x900');
         queue.loadFile('https://source.unsplash.com/weekly?water');
         queue.loadFile('https://source.unsplash.com/daily');
